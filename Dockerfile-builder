@@ -1,9 +1,9 @@
 FROM golang:1.8
 LABEL maintainer="Chris Collins <collins.christopher@gmail.com>"
 
-ENV appname=goRestApp
+ENV appname=gorestapp
 
-ENV appdir=/go/src/github.com/clcollins/goRestApp
+ENV appdir=/go/src/github.com/clcollins/gorestapp
 
 ENV CGO_ENABLED=0
 ENV GOOS=linux
