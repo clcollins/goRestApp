@@ -1,6 +1,9 @@
-pkg/
 .devel/
+
 *key
 *crt
 *cert
 *pem
+
+pkg/
+add_kitty.sh
