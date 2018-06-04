@@ -1,0 +1,17 @@
+FROM golang:1.8
+LABEL maintainer="Chris Collins <collins.christopher@gmail.com>"
+
+ENV appname=goLabourdyRestApp
+
+ENV appdir=/go/src/github.com/clcollins/goLabourdyRestApp
+
+ENV CGO_ENABLED=0
+ENV GOOS=linux
+
+COPY ./ ${appdir}
+WORKDIR ${appdir}
+
+RUN go get
+RUN go build -a -installsuffix cgo -v
+
+RUN go test -v
