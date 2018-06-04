@@ -1,0 +1,6 @@
+pkg/
+.devel/
+*key
+*crt
+*cert
+*pem
