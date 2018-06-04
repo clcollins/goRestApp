@@ -3,7 +3,7 @@ GoRestApp
 
 A golang REST API application, based on https://hackernoon.com/build-restful-api-in-go-and-mongodb-5e7f2ec4be94 by Mohamed Labouardy.
 
-This is part of my [#100DaysOfCode]{https://github.com/clcollins/100-days-of-code} to learn golang!
+This is part of my [#100DaysOfCode](https://github.com/clcollins/100-days-of-code) to learn golang!
 
 The App
 -------
