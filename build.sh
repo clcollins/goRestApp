@@ -4,6 +4,7 @@
 # Gets its appname from the directory name
 
 set -o errexit
+set -o nounset
 
 if [[ -f .env ]]
 then
@@ -38,7 +39,7 @@ app_dockerfile="Dockerfile"
 
 function cleanup() {
   echo "Cleaning up..."
-  if $(docker ps -a | grep $builder)
+  if docker ps -a | grep $builder
   then
     docker rm $builder
   fi
@@ -55,7 +56,7 @@ function build_binary() {
   
   mkdir -p ./pkg
   
-  docker cp ${builder}:${appdir}/ ./pkg/
+  docker cp ${builder}:${appdir}/. ./pkg/
 }
 
 function build_image() {
