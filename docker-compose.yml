@@ -1,6 +1,11 @@
 ---
 version: '3'
 services:
+  db:
+    image: mongo:latest
+    volumes:
+      - .devel/mongodb:/data/db:z
   app:
     image: ${APPNAME}:latest
-    entrypoint: ${APPNAME}
+    ports:
+      - 127.0.0.1:3000:3000
