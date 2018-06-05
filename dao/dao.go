@@ -43,7 +43,7 @@ func (conn *GatosDAO) Insert(gato Gato) error {
   return err
 }
 
-func (conn, *GatosDAO) Update(gato Gato) error {
+func (conn *GatosDAO) Update(gato Gato) error {
   err := db.C(COLLECTION).UpdateId(gato.ID, &gato)
   return err
 }
