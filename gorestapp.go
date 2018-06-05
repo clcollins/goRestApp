@@ -45,7 +45,17 @@ func ReadCat(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateCat(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "not implemented yet")
+	defer r.Body.Close()
+	var gato Gato
+	if err := json.NewDecoder(r.Body).Decode(&gato); err != nil {
+		respondWithError(w, htp.StatusBadRequest, "Invalid request")
+		return
+	}
+	if err := dao.Update(gato); err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	respondWithJson(w, http.StatusOK, map[string]string{"result": "success"})
 }
 
 func DeleteCat(w http.ResponseWriter, r *http.Request) {

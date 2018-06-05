@@ -32,13 +32,18 @@ func (conn *GatosDAO) FindAll() ([]Gato, error) {
   return gatos, err
 }
 
+func (conn *GatosDAO) FindById(id string) (Gato, error) {
+  var gato Gato
+  err := db.C(COLLECTION).FindId(bson.ObjectIdHex(id)).One(&gato)
+  return gato, err
+}
+
 func (conn *GatosDAO) Insert(gato Gato) error {
   err := db.C(COLLECTION).Insert(&gato)
   return err
 }
 
-func (conn *GatosDAO) FindById(id string) (Gato, error) {
-  var gato Gato
-  err := db.C(COLLECTION).FindId(bson.ObjectIdHex(id)).One(&gato)
-  return gato, err
+func (conn, *GatosDAO) Update(gato Gato) error {
+  err := db.C(COLLECTION).UpdateId(gato.ID, &gato)
+  return err
 }
