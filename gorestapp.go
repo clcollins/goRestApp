@@ -48,7 +48,7 @@ func UpdateCat(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	var gato Gato
 	if err := json.NewDecoder(r.Body).Decode(&gato); err != nil {
-		respondWithError(w, htp.StatusBadRequest, "Invalid request")
+		respondWithError(w, http.StatusBadRequest, "Invalid request")
 		return
 	}
 	if err := dao.Update(gato); err != nil {
