@@ -1,0 +1,9 @@
+<h1>Cat Parade!</h1>
+
+{{ with .gatos }}
+  {{ range . }}
+    <p>
+      {{ .image }}
+    </p>
+  {{ end }}
+{{ end }}

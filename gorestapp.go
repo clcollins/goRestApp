@@ -82,14 +82,8 @@ func CatParadeTmpl(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("gatos: %v", gatos)
 
 	t := template.New("Cat Parade")
-	t, _  = t.Parse(`Cat Parade!
-		  {{ with .Gatos }}
-			  {{ range .}}
-				    {{ .Image }}
-				{{ end }}
-			{{ end }}
-  `)
-		t.Execute(w, gatos)
+	t, _  = t.ParseFiles("index.html")
+	t.Execute(w, gatos)
 }
 
 func respondWithError(w http.ResponseWriter, code int, msg string) {
