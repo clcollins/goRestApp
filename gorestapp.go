@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"html/template"
 	"encoding/json"
 
 	"gopkg.in/mgo.v2/bson"
@@ -71,6 +72,24 @@ func CatParade(w http.ResponseWriter, r *http.Request) {
 	respondWithJson(w, http.StatusOK, gatos)
 }
 
+func CatParadeTmpl(w http.ResponseWriter, r *http.Request) {
+	gatos, err := dao.FindAll()
+	if err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	t := template.New("Cat Parade")
+	t, _  = t.Parse(`Cat Parade!
+		  {{ with .Gatos }}
+			  {{ range .}}
+				    {{ .Image }}
+				{{ end }}
+			{{ end }}
+  `)
+		t.Execute(w, image)
+}
+
 func respondWithError(w http.ResponseWriter, code int, msg string) {
 	respondWithJson(w, code, map[string]string{"error": msg})
 }
@@ -92,6 +111,8 @@ func main() {
   listenPort := "3000"
 	r          := mux.NewRouter()
 	apiV1      := "/api/v1"
+
+	r.HandleFunc("/", CatParadeTmpl).Method("GET")
 
 	r. HandleFunc(fmt.Sprintf("%s/gatos", apiV1), CatParade).Methods("GET")
 	r. HandleFunc(fmt.Sprintf("%s/gatos", apiV1), CreateCat).Methods("POST")
