@@ -87,7 +87,7 @@ func CatParadeTmpl(w http.ResponseWriter, r *http.Request) {
 				{{ end }}
 			{{ end }}
   `)
-		t.Execute(w, image)
+		t.Execute(w, gatos)
 }
 
 func respondWithError(w http.ResponseWriter, code int, msg string) {
@@ -112,7 +112,7 @@ func main() {
 	r          := mux.NewRouter()
 	apiV1      := "/api/v1"
 
-	r.HandleFunc("/", CatParadeTmpl).Method("GET")
+	r.HandleFunc("/cats", CatParadeTmpl).Methods("GET")
 
 	r. HandleFunc(fmt.Sprintf("%s/gatos", apiV1), CatParade).Methods("GET")
 	r. HandleFunc(fmt.Sprintf("%s/gatos", apiV1), CreateCat).Methods("POST")
