@@ -79,6 +79,8 @@ func CatParadeTmpl(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fmt.printf("gatos: %v", gatos)
+
 	t := template.New("Cat Parade")
 	t, _  = t.Parse(`Cat Parade!
 		  {{ with .Gatos }}
@@ -112,7 +114,7 @@ func main() {
 	r          := mux.NewRouter()
 	apiV1      := "/api/v1"
 
-	r.HandleFunc("/cats", CatParadeTmpl).Methods("GET")
+	r.HandleFunc("/", CatParadeTmpl).Methods("GET")
 
 	r. HandleFunc(fmt.Sprintf("%s/gatos", apiV1), CatParade).Methods("GET")
 	r. HandleFunc(fmt.Sprintf("%s/gatos", apiV1), CreateCat).Methods("POST")
