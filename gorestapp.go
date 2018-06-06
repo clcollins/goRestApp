@@ -80,7 +80,7 @@ func CatParadeTmpl(w http.ResponseWriter, r *http.Request) {
 	}
 
 
-	fmt.Printf(w, "gatos: %v", gatos)
+	fmt.Printf(w, http.StatusOK, "gatos: %v", gatos)
 
 	// t := template.New("Cat Parade")
 	// t, _  = t.ParseFiles("index.html")
