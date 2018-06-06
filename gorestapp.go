@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"html/template"
+	//"html/template"
 	"encoding/json"
 
 	"gopkg.in/mgo.v2/bson"
@@ -79,11 +79,12 @@ func CatParadeTmpl(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Printf("gatos: %v", gatos)
 
-	t := template.New("Cat Parade")
-	t, _  = t.ParseFiles("index.html")
-	t.Execute(w, gatos)
+	fmt.Printf(w, "gatos: %v", gatos)
+
+	// t := template.New("Cat Parade")
+	// t, _  = t.ParseFiles("index.html")
+	// t.Execute(w, gatos)
 }
 
 func respondWithError(w http.ResponseWriter, code int, msg string) {
