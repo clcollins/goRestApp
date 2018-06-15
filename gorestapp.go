@@ -100,11 +100,12 @@ func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 func init() {
 	dao.Server = "db"
 	dao.Database = "gatos"
+
+	fmt.Printf("Connecting to database %s:%s...", dao.Server, dao.Database)
 	dao.Connect()
 }
 
 func main() {
-	fmt.Printf("Starting app...")
 	listenPort := "3000"
 	r := mux.NewRouter()
 	apiV1 := "/api/v1"
