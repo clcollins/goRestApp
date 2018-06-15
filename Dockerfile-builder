@@ -12,6 +12,6 @@ COPY ./ ${appdir}
 WORKDIR ${appdir}
 
 RUN go get
-RUN go build -a -installsuffix cgo -v
+RUN go build -o /build/${appname} -a -installsuffix cgo -v
 
 RUN go test -v
