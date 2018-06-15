@@ -1,19 +1,19 @@
 package main
 
 import (
-	"os"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	//"html/template"
 	"encoding/json"
 
-	"gopkg.in/mgo.v2/bson"
-	"github.com/gorilla/mux"
 	"github.com/ajays20078/go-http-logger"
+	"github.com/gorilla/mux"
+	"gopkg.in/mgo.v2/bson"
 
-	. "github.com/clcollins/goRestApp/models"
 	. "github.com/clcollins/goRestApp/dao"
+	. "github.com/clcollins/goRestApp/models"
 )
 
 var dao = GatosDAO{}
@@ -79,8 +79,7 @@ func CatParadeTmpl(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
-	fmt.Printf(w, http.StatusOK, "gatos: %v", gatos)
+	fmt.Printf("gatos: %v", gatos)
 
 	// t := template.New("Cat Parade")
 	// t, _  = t.ParseFiles("index.html")
@@ -98,27 +97,29 @@ func respondWithJson(w http.ResponseWriter, code int, payload interface{}) {
 	w.Write(response)
 }
 
-func init(){
+func init() {
 	dao.Server = "db"
 	dao.Database = "gatos"
 	dao.Connect()
 }
 
 func main() {
-  listenPort := "3000"
-	r          := mux.NewRouter()
-	apiV1      := "/api/v1"
+	fmt.Printf("Starting app...")
+	listenPort := "3000"
+	r := mux.NewRouter()
+	apiV1 := "/api/v1"
 
 	r.HandleFunc("/", CatParadeTmpl).Methods("GET")
 
-	r. HandleFunc(fmt.Sprintf("%s/gatos", apiV1), CatParade).Methods("GET")
-	r. HandleFunc(fmt.Sprintf("%s/gatos", apiV1), CreateCat).Methods("POST")
-	r. HandleFunc(fmt.Sprintf("%s/gatos", apiV1), UpdateCat).Methods("PUT")
-	r. HandleFunc(fmt.Sprintf("%s/gatos", apiV1), UpdateCat).Methods("PATCH")
-	r. HandleFunc(fmt.Sprintf("%s/gatos", apiV1), DeleteCat).Methods("DELETE")
-	r. HandleFunc(fmt.Sprintf("%s/gatos/{id}", apiV1), ReadCat).Methods("GET")
+	r.HandleFunc(fmt.Sprintf("%s/gatos", apiV1), CatParade).Methods("GET")
+	r.HandleFunc(fmt.Sprintf("%s/gatos", apiV1), CreateCat).Methods("POST")
+	r.HandleFunc(fmt.Sprintf("%s/gatos", apiV1), UpdateCat).Methods("PUT")
+	r.HandleFunc(fmt.Sprintf("%s/gatos", apiV1), UpdateCat).Methods("PATCH")
+	r.HandleFunc(fmt.Sprintf("%s/gatos", apiV1), DeleteCat).Methods("DELETE")
+	r.HandleFunc(fmt.Sprintf("%s/gatos/{id}", apiV1), ReadCat).Methods("GET")
 
-  fmt.Printf("Listening on :" + listenPort + "\n")
-	if err := http.ListenAndServe(":" + listenPort , httpLogger.WriteLog(r, os.Stdout))
-	err != nil { log.Fatal(err)	}
+	fmt.Printf("Listening on :" + listenPort + "\n")
+	if err := http.ListenAndServe(":"+listenPort, httpLogger.WriteLog(r, os.Stdout)); err != nil {
+		log.Fatal(err)
+	}
 }
