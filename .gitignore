@@ -5,5 +5,8 @@
 *cert
 *pem
 
+*.swp
+
 pkg/
 add_kitty.sh
+
